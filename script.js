@@ -89,6 +89,8 @@ function gameOver() {
 addWordToDOM();
 
 // Event listeners
+
+// Type word
 text.addEventListener('input', e => {
   const insertedText = e.target.value;
   if (insertedText === randomWord) {
@@ -100,4 +102,9 @@ text.addEventListener('input', e => {
     time += 5;
     updateTime();
   }
+});
+
+// Settings button click
+settingsBtn.addEventListener('click', e => {
+  settings.classList.toggle('hide');
 });
