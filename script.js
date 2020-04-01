@@ -48,6 +48,14 @@ text.focus();
 // Init time
 let time = 10;
 
+// Set difficulty to value in ls or medium
+let difficulty =
+  localStorage.getItem('difficulty') !== null
+    ? localStorage.getItem('difficulty')
+    : 'medium';
+// Set difficulty select value
+difficultySelect.value = difficulty;
+
 // Generate random word from array
 function getRandomWord() {
   return words[Math.floor(Math.random() * words.length)];
@@ -98,8 +106,14 @@ text.addEventListener('input', e => {
     updateScore();
     //clear
     e.target.value = '';
-    //update time after correct word typed
-    time += 5;
+
+    if (difficulty === 'hard') {
+      time += 2;
+    } else if (difficulty === 'medium') {
+      time += 3.5;
+    } else {
+      time += 5;
+    }
     updateTime();
   }
 });
@@ -107,4 +121,10 @@ text.addEventListener('input', e => {
 // Settings button click
 settingsBtn.addEventListener('click', e => {
   settings.classList.toggle('hide');
+});
+
+// Settings select
+settingsForm.addEventListener('change', e => {
+  difficulty = e.target.value;
+  localStorage.setItem('difficulty', difficulty);
 });
